@@ -1,0 +1,47 @@
+server:
+  port: 8097
+
+spring:
+  main.allow-bean-definition-overriding: true
+  application:
+    name: ca-result
+
+  datasource:
+    hikari:
+      maximum-pool-size: 100
+      connection-timeout: 60000
+      idle-timeout: 30000
+      minimum-idle: 10
+      validation-timeout: 3000
+
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://127.0.0.1:3306/ca_learn_camunda?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    password: 123456
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ca_camunda?readPreference=primary&ssl=false
+
+
+camunda:
+  bpm:
+    client:
+      http:
+        connection-request-timeout: 15000
+        connect-timeout: 15000
+        socket-timeout: 15000
+      max-tasks: 1
+      disable-backoff-strategy: true
+      lock-duration: 10000
+      async-response-timeout: 10000
+      base-url: http://localhost:8099/engine-rest
+ca:
+  snowflake:
+    worker-id: 0
